@@ -1,0 +1,13 @@
+{
+  "name" : "http-redirect",
+  "version" : "0.0.1",
+  "engines" : { 
+      "node" : ">=0.10.0" 
+  },
+  "dependencies" : {
+      "form-urlencoded" : "*"
+  },
+  "scripts" : {
+    "start" : "node scripts/start.js"
+  }
+}
