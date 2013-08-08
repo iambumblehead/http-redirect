@@ -23,7 +23,7 @@ objobjwalk may be downloaded directly or installed through `npm`.
  
  ```bash  
  $ git clone https://github.com/iambumblehead/http-redirect.git
- $ cd objobjwalk && npm install
+ $ cd http-redirect && npm install
  ```
 ---------------------------------------------------------
 #### <a id="get-started">GET STARTED: 
