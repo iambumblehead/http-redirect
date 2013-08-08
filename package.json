@@ -1,13 +1,19 @@
 {
   "name" : "http-redirect",
-  "version" : "0.0.1",
+  "version" : "0.0.2",
   "engines" : { 
       "node" : ">=0.10.0" 
   },
+  "keywords": [
+      "redirect",
+      "proxy"
+  ],
   "dependencies" : {
       "form-urlencoded" : "*"
   },
   "scripts" : {
     "start" : "node scripts/start.js"
-  }
+  },
+  "readmeFilename": "README.md",
+  "description": "proxy requests to an ip-address or url"
 }
