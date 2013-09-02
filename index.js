@@ -1,4 +1,4 @@
-// Filename: HTTPRedirect.js  
+// Filename: http-redirect.js  
 // Timestamp: 2013.08.07-20:22:13 (last modified)  
 // Author(s): Bumblehead (www.bumblehead.com)  
 // 
