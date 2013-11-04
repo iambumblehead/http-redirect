@@ -1,5 +1,5 @@
 // Filename: http-redirect.js  
-// Timestamp: 2013.08.07-20:22:13 (last modified)  
+// Timestamp: 2013.11.03-19:10:56 (last modified)  
 // Author(s): Bumblehead (www.bumblehead.com)  
 // 
 // https demonstration from nodejs.org
@@ -75,6 +75,58 @@ var HTTPRedirect = module.exports = (function () {
       }
 
       return finBody;
+    },
+
+    send : function (opts, fn) {
+      var that = this, newReq, body, chunksCat = '',
+          isEncrypted = that.isReqEncrypted(opts.req),
+          newRequestType = isEncrypted ? https : http;
+
+      var options = {
+        method : opts.method,
+        host : opts.host,
+        port : opts.port,
+        path : opts.path
+      };
+
+      body = that.getReqProxyBody(opts.req);
+      options.headers = that.getReqProxyHeaders(opts.req, body);
+
+     if (isEncrypted) {
+        options.agent = new https.Agent(options);
+        options.rejectUnauthorized = false;
+      }
+
+      // newRequest as an 'http' or 'https' object
+      newReq = newRequestType.request(options, function(newRes) {
+        newRes.setEncoding('utf8');
+
+        newRes.on('error', function(e) {
+          console.log('[!!!] 2' + e.message, options.port, options.host, options.path, body);
+          fn(e);
+        });
+
+        newRes.on('data', function(chunk) {
+          chunksCat += chunk;
+        });
+
+        newRes.on('end', function () {
+          fn(null, chunksCat);
+        });
+
+        newRes.on('close', function() {
+          fn(null, chunksCat);
+        });
+      });
+
+      if (body) newReq.write(body);
+
+      newReq.on('error', function(e) {
+        console.log('[!!!] ' + e.message, options.port, options.host, options.path);
+        fn(500);
+      });
+
+      newReq.end();
     },
 
     doProxy : function (req, res) {
