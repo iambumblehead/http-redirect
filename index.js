@@ -1,5 +1,5 @@
 // Filename: http-redirect.js  
-// Timestamp: 2013.11.03-19:10:56 (last modified)  
+// Timestamp: 2017.03.31-13:17:26 (last modified)
 // Author(s): Bumblehead (www.bumblehead.com)  
 // 
 // https demonstration from nodejs.org
