@@ -1,5 +1,5 @@
 // Filename: http-redirect.js  
-// Timestamp: 2017.03.31-13:17:26 (last modified)
+// Timestamp: 2017.04.05-11:03:28 (last modified)
 // Author(s): Bumblehead (www.bumblehead.com)  
 // 
 // https demonstration from nodejs.org
@@ -69,7 +69,7 @@ var HTTPRedirect = module.exports = (function () {
           finBody = null;
 
       if (contentType === contentTypeFORM) {
-        finBody = that.getAsEncodedFormStr(req.body);        
+        finBody = formurlencoded(req.body);
       } else if (contentType === contentTypeJSON) {
         finBody = that.getAsJSONStr(req.body);        
       }
@@ -194,7 +194,7 @@ var HTTPRedirect = module.exports = (function () {
       that.host = spec.host;
       that.port = spec.port;
 
-      that.getAsEncodedFormStr = formurlencoded.encode;
+      //that.getAsEncodedFormStr = formurlencoded.encode;
 
       that.getAsJSONStr = function (o) {
         try {
