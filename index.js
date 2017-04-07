@@ -1,5 +1,5 @@
 // Filename: http-redirect.js  
-// Timestamp: 2017.04.05-11:03:28 (last modified)
+// Timestamp: 2017.04.07-13:08:16 (last modified)
 // Author(s): Bumblehead (www.bumblehead.com)  
 // 
 // https demonstration from nodejs.org
@@ -79,13 +79,22 @@ var HTTPRedirect = module.exports = (function () {
 
     send : function (opts, fn) {
       var that = this, newReq, body, chunksCat = '',
-          isEncrypted = that.isReqEncrypted(opts.req),
-          newRequestType = isEncrypted ? https : http;
+          isEncrypted = that.isReqEncrypted(opts.req);
+
+      if (opts.force === 'http') {
+        isEncrypted = false;
+      } else if (opts.force === 'https') {
+        isEncrypted = true;
+      }
+      
+      var newRequestType = isEncrypted ? https : http;
 
       var options = {
         method : opts.method,
         host : opts.host,
-        port : opts.port,
+        port : isEncrypted
+          ? opts.porthttps || 443
+          : opts.porthttp || 80,
         path : opts.path
       };
 
@@ -137,7 +146,10 @@ var HTTPRedirect = module.exports = (function () {
       var options = {
         method : req.method,
         host : that.host,
-        port : that.port,
+        port : isEncrypted
+          ? that.porthttps || 443
+          : that.porthttp || 80,
+        //port : that.port,
         path : req.url
       };
 
